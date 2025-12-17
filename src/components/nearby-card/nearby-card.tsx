@@ -1,7 +1,7 @@
 import { AppRoute } from "../../const";
 import { Link } from "react-router-dom";
 
-type CitiesCardProps = {
+type NearbyCardProps = {
   id: string;
   title: string;
   type: string;
@@ -9,11 +9,12 @@ type CitiesCardProps = {
   isPremium: boolean;
   previewImage: string;
   rating: number;
+  isFavorite: boolean;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
 };
 
-function CitiesCard({
+function NearbyCard({
   id,
   title,
   type,
@@ -21,12 +22,13 @@ function CitiesCard({
   previewImage,
   isPremium,
   rating,
+  isFavorite,
   onMouseEnter,
   onMouseLeave,
-}: CitiesCardProps) {
+}: NearbyCardProps) {
   return (
     <article
-      className="cities__card place-card"
+      className="near-places__card place-card"
       onMouseEnter={() => onMouseEnter?.(id)}
       onMouseLeave={() => onMouseLeave?.()}
     >
@@ -35,7 +37,7 @@ function CitiesCard({
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className="near-places__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
@@ -52,7 +54,12 @@ function CitiesCard({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={`place-card__bookmark-button button ${
+              isFavorite ? "place-card__bookmark-button--active" : ""
+            }`}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use href="#icon-bookmark"></use>
             </svg>
@@ -66,7 +73,7 @@ function CitiesCard({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -74,4 +81,4 @@ function CitiesCard({
   );
 }
 
-export { CitiesCard };
+export { NearbyCard };

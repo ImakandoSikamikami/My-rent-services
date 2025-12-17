@@ -1,21 +1,17 @@
 import { OffersList } from "../../types/offer";
-import { CitiesCard } from "../cities-card/cities-card";
+import { NearbyCard } from "../nearby-card/nearby-card";
 
-type CitiesCardListProps = {
-  offersList: OffersList[];
+type NearbyListProps = {
+  offers: OffersList[];
   onCardHover?: (offerId: string) => void;
   onCardLeave?: () => void;
 };
 
-function CitiesCardList({
-  offersList,
-  onCardHover,
-  onCardLeave,
-}: CitiesCardListProps) {
+function NearbyList({ offers, onCardHover, onCardLeave }: NearbyListProps) {
   return (
-    <div className="cities__places-list places__list tabs__content">
-      {offersList.map((offer) => (
-        <CitiesCard
+    <div className="near-places__list places__list">
+      {offers.map((offer) => (
+        <NearbyCard
           key={offer.id}
           id={offer.id}
           title={offer.title}
@@ -24,6 +20,7 @@ function CitiesCardList({
           isPremium={offer.isPremium}
           previewImage={offer.previewImage}
           rating={offer.rating}
+          isFavorite={offer.isFavorite}
           onMouseEnter={onCardHover}
           onMouseLeave={onCardLeave}
         />
@@ -32,4 +29,4 @@ function CitiesCardList({
   );
 }
 
-export { CitiesCardList };
+export { NearbyList };
